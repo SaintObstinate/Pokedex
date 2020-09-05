@@ -1,0 +1,42 @@
+<div class="container">
+  <h1> {{title}} </h1>
+  <div class="row">
+    <div class="search-hero">
+      <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+        placeholder="Pesquisa por Nome">
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Id</th>
+          <th>Pokemon</th>
+          <th>Altura</th>
+          <th>Tipos</th>
+          <th>Velocidade</th>
+          <th>Ataque</th>
+          <th>Defesa</th>
+          <th>HP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of pokemons | filter:searchText | paginate: { itemsPerPage: 20, currentPage: paginaAtual }; let i = index">
+          <td><img src = "{{p.sprite}}" ></td>
+          <td>{{p.id}}</td>
+          <td>{{p.name}}</td>
+          <td>{{p.height}}m</td>
+          <td> <p *ngFor="let t of p.types">{{t.type.name}} </p></td>
+          <td>{{p.speed}}</td>
+          <td>{{p.atk}}</td>
+          <td>{{p.def}}</td>
+          <td>{{p.hp}}</td>
+
+        </tr>
+      </tbody>
+      <div class ="pagina">
+        <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+      </div>
+     
+    </table>
+  </div>
+</div>
